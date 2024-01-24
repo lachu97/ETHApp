@@ -15,16 +15,19 @@ const actions = [
 const UserActions = () => {
   const walletAddress = useSelector(state => state.reducer.walletAddress);
   const navigation = useNavigation();
-  const handlePress = item => {
-    if (item === 'Copy') {
-      Toast.show('Copied to ClipBoard', {
-        type: 'success',
-      });
-    }
-    if (item === 'Sent') {
-      navigation.navigate('Sent');
-    }
-  };
+  const handlePress = useCallback(
+    item => {
+      if (item === 'Copy') {
+        Toast.show('Copied to ClipBoard', {
+          type: 'success',
+        });
+      }
+      if (item === 'Sent') {
+        navigation.navigate('Sent');
+      }
+    },
+    [navigation],
+  );
   const renderItems = useCallback(
     ({item}) => (
       <Pressable style={{margin: 10}} onPress={() => handlePress(item.id)}>
@@ -34,7 +37,7 @@ const UserActions = () => {
         </Text>
       </Pressable>
     ),
-    [],
+    [handlePress],
   );
   return (
     <View>

@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import UserActions from './Components/userActions';
 import TokenList from './Components/TokenList';
 import {alchemy} from '../alchemy/AlchemyAPI';
-import { addTokenBalance, addTokens, addWallets } from "../Redux/AppReducer";
+import {addTokenBalance, addTokens, addWallets} from '../Redux/AppReducer';
 import {useDispatch} from 'react-redux';
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -22,8 +22,10 @@ const HomeScreen = () => {
         dispatch(addWallets('0x994b342dd87fc825f66e51ffa3ef71ad818b6893'));
         dispatch(addTokens(r.transfers));
       });
-      alchemy.core.getBalance('0x994b342dd87fc825f66e51ffa3ef71ad818b6893').then(r =>dispatch(addTokenBalance(r._hex)))
-   // alchemy.core.getBlock('latest').then(r => console.log(r));
+    alchemy.core
+      .getBalance('0x994b342dd87fc825f66e51ffa3ef71ad818b6893')
+      .then(r => dispatch(addTokenBalance(r._hex)));
+    // alchemy.core.getBlock('latest').then(r => console.log(r));
   }, [dispatch]);
   const navigation = useNavigation();
   return (
@@ -33,7 +35,7 @@ const HomeScreen = () => {
           style={{marginVertical: 5}}
           source={require('../assets/four.png')}
           size={25}
-         // removeClippedSubviews
+          // removeClippedSubviews
         />
         <Icon
           style={{marginVertical: 5}}

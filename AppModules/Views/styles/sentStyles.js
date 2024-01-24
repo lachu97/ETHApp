@@ -7,5 +7,9 @@ export default StyleSheet.create({
   modal:{
     margin:15,
     padding:5
+  },
+  input:{
+    marginVertical:10,
+    padding:5
   }
 });

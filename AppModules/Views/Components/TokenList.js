@@ -4,18 +4,31 @@ import {FlatList, View} from 'react-native';
 import {MD2Colors, Text} from 'react-native-paper';
 const TokenList = () => {
   const tokens = useSelector(state => state.reducer.userTokens);
-  const renderItems = ({item}) => {
+  const renderItems = useCallback(({item}) => {
     <Text>{item.name}</Text>;
-  };
+  }, []);
   const renderEmpty = useCallback(
     () => (
-      <Text style={{alignSelf: 'center', fontWeight: 'bold', fontSize: 19,marginVertical:15}}>
+      <Text
+        style={{
+          alignSelf: 'center',
+          fontWeight: 'bold',
+          fontSize: 19,
+          marginVertical: 15,
+        }}>
         No Token History
       </Text>
     ),
     [],
   );
-  const renderHeader = () => <Text style={{fontSize:20,marginVertical:10}}>Transaction History</Text>;
+  const renderHeader = useCallback(
+    () => (
+      <Text style={{fontSize: 20, marginVertical: 10}}>
+        Transaction History
+      </Text>
+    ),
+    [],
+  );
   return (
     <FlatList
       data={tokens}
