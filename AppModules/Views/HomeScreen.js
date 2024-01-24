@@ -29,10 +29,17 @@ const HomeScreen = () => {
   return (
     <View style={homeStyles.container}>
       <View style={homeStyles.topContainer}>
-        <Pressable onPress={() => navigation.navigate('Sent')}>
-          <Text>Home</Text>
-        </Pressable>
-        <MaterialCommunityIcons size={24} name="camera" />
+        <Icon
+          style={{marginVertical: 5}}
+          source={require('../assets/four.png')}
+          size={25}
+         // removeClippedSubviews
+        />
+        <Icon
+          style={{marginVertical: 5}}
+          source={require('../assets/more.png')}
+          size={25}
+        />
       </View>
       <View style={homeStyles.avatar}>
         <Avatar.Image

@@ -1,9 +1,9 @@
 import React, {useCallback} from 'react';
 import {FlatList, Pressable, View} from 'react-native';
-import {Avatar, Text} from 'react-native-paper';
-import { useSelector } from "react-redux";
-import Clipboard from '@react-native-clipboard/clipboard';
-import { Toast } from "react-native-toast-notifications";
+import {Avatar, MD2Colors, Text} from 'react-native-paper';
+import {useSelector} from 'react-redux';
+import {Toast} from 'react-native-toast-notifications';
+import {useNavigation} from '@react-navigation/native';
 
 const actions = [
   {id: 'Buy', name: 'Buy', icon: require('../../assets/add.png')},
@@ -13,16 +13,18 @@ const actions = [
 ];
 
 const UserActions = () => {
-  const walletAddress = useSelector(state => state.reducer.walletAddress)
+  const walletAddress = useSelector(state => state.reducer.walletAddress);
+  const navigation = useNavigation();
   const handlePress = item => {
-    if(item.id === 'Copy') {
-      Clipboard.setString(walletAddress)
-      Toast.show("Copied to ClipBoard",{
-        type:'success'
-      })
-      return
+    if (item === 'Copy') {
+      Toast.show('Copied to ClipBoard', {
+        type: 'success',
+      });
     }
-  }
+    if (item === 'Sent') {
+      navigation.navigate('Sent');
+    }
+  };
   const renderItems = useCallback(
     ({item}) => (
       <Pressable style={{margin: 10}} onPress={() => handlePress(item.id)}>
@@ -35,13 +37,14 @@ const UserActions = () => {
     [],
   );
   return (
-    <FlatList
-      style={{margin: 10}}
-      contentContainerStyle={{}}
-      data={actions}
-      renderItem={renderItems}
-      horizontal
-    />
+    <View>
+      <FlatList
+        style={{marginVertical: 1, backgroundColor: MD2Colors.transparent}}
+        data={actions}
+        renderItem={renderItems}
+        horizontal
+      />
+    </View>
   );
 };
 export default React.memo(UserActions);
